@@ -1,18 +1,23 @@
+#include <vector>
+#include <cstring>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
+#include <sys/time.h>
+#include <omp.h>
 #include <pmmintrin.h>
 #include <xmmintrin.h>
 #include <emmintrin.h>
 #include <smmintrin.h>
 #include <tmmintrin.h>
 #include <nmmintrin.h>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <immintrin.h> //AVX、AVX2
-//#include <windows.h>
-#include <sys/time.h>
+#include <immintrin.h> 
 using namespace std;
 
-const int n = 300;
+const int n = 1000;
 float A[n][n];
 
 
