@@ -192,3 +192,28 @@ void avx512()
 	}
 }
 
+int main(int argc, char *argv[])
+{
+    init();
+    auto Start = std::chrono::high_resolution_clock::now();
+    sse();
+    auto End = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double,std::ratio<1,1000>>elapsed = End - Start;
+    std::cout<<"average latency  : "<<elapsed.count()<<" (us) "<<std::endl;
+
+    init();
+    auto Start = std::chrono::high_resolution_clock::now();
+    avx256();
+    auto End = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double,std::ratio<1,1000>>elapsed = End - Start;
+    std::cout<<"average latency  : "<<elapsed.count()<<" (us) "<<std::endl;
+
+    init();
+    auto Start = std::chrono::high_resolution_clock::now();
+    avx512();
+    auto End = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double,std::ratio<1,1000>>elapsed = End - Start;
+    std::cout<<"average latency  : "<<elapsed.count()<<" (us) "<<std::endl;
+
+    return 0;
+}
