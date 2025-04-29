@@ -91,7 +91,11 @@ void gs_cache()
     }
 }
 
-
+float32x4_t va = vmovq_n_f32(0);
+float32x4_t vx = vmovq_n_f32(0);
+float32x4_t vaij = vmovq_n_f32(0);
+float32x4_t vaik = vmovq_n_f32(0);
+float32x4_t vakj = vmovq_n_f32(0);
 
 
 void simd()
