@@ -174,5 +174,22 @@ int main(int argc, char *argv[])
     std::chrono::duration<double,std::ratio<1,1000>>elapsed1 = End1 - Start1;
     std::cout<<"average latency  : "<<elapsed1.count()<<" (us) "<<std::endl;
 
+    init();
+    auto Start2 = std::chrono::high_resolution_clock::now();
+  
+    f_omp_dynamic();
+
+    auto End2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double,std::ratio<1,1000>>elapsed2 = End2 - Start2;
+    std::cout<<"average latency  : "<<elapsed2.count()<<" (us) "<<std::endl;
+
+    init();
+    auto Start3 = std::chrono::high_resolution_clock::now();
+  
+    f_omp_guided();
+
+    auto End3 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double,std::ratio<1,1000>>elapsed3 = End3 - Start3;
+    std::cout<<"average latency  : "<<elapsed3.count()<<" (us) "<<std::endl;
     return 0;
 }
