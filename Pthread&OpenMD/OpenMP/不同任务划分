@@ -65,7 +65,6 @@ void f_ordinary()
 	}
 }
 
-
 void f_omp_static()
 {
 	 #pragma omp parallel num_threads(NUM_THREADS)
@@ -95,6 +94,71 @@ void f_omp_static()
 		// 离开for循环时，各个线程默认同步，进入下一行的处理
 	}
 }
+
+
+void f_omp_dynamic()
+{
+	 #pragma omp parallel num_threads(NUM_THREADS)
+
+	for (int k = 0; k < n; k++)
+	{
+		//串行部分
+		#pragma omp single
+		{
+			float tmp = A[k][k];
+			for (int j = k + 1; j < n; j++)
+			{
+				A[k][j] = A[k][j] / tmp;
+			}
+			A[k][k] = 1.0;
+		}
+
+		//并行部分
+		#pragma omp for schedule(dynamic, 80)
+		for (int i = k + 1; i < n; i++)
+		{
+			float tmp = A[i][k];
+			for (int j = k + 1; j < n; j++)
+				A[i][j] = A[i][j] - tmp * A[k][j];
+			A[i][k] = 0;
+		}
+		// 离开for循环时，各个线程默认同步，进入下一行的处理
+	}
+}
+
+
+
+void f_omp_guided()
+{
+	 #pragma omp parallel num_threads(NUM_THREADS)
+
+	for (int k = 0; k < n; k++)
+	{
+		//串行部分
+		#pragma omp single
+		{
+			float tmp = A[k][k];
+			for (int j = k + 1; j < n; j++)
+			{
+				A[k][j] = A[k][j] / tmp;
+			}
+			A[k][k] = 1.0;
+		}
+
+		//并行部分
+		#pragma omp for schedule(guided, 80)
+		for (int i = k + 1; i < n; i++)
+		{
+			float tmp = A[i][k];
+			for (int j = k + 1; j < n; j++)
+				A[i][j] = A[i][j] - tmp * A[k][j];
+			A[i][k] = 0;
+		}
+		// 离开for循环时，各个线程默认同步，进入下一行的处理
+	}
+}
+
+
 
 
 
